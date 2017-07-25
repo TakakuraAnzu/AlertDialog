@@ -1,2 +1,2 @@
 # AlterDialog
-根据https://github.com/pedant/sweet-alert-dialog重新编写
+根据 https://github.com/pedant/sweet-alert-dialog 重新编写
