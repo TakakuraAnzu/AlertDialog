@@ -29,29 +29,8 @@ public class MainActivity extends AppCompatActivity {
         Button error = findViewById(R.id.error);
         Button list = findViewById(R.id.list);
 
-        normal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                normalDialog.show();
-            }
-        });
-
-        error.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                errorDialog.show();
-            }
-        });
-
-        list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listDialog.show();
-            }
-        });
-
         //正常的提示Dialog显示
-        DialogConfig normalConfig = new DialogConfig.Builder()
+        final DialogConfig normalConfig = new DialogConfig.Builder()
                 .setTitle("这里是标题")
                 .setContext("这里是内容。。。。")
                 .setCancelText("取消")
@@ -62,17 +41,16 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 })
-                .setConfirmClick(new ClickListener<ErrorDialog>() {
+                .setConfirmClick(new ClickListener<NormalDialog>() {
                     @Override
-                    public void onClick(ErrorDialog dialog) {
+                    public void onClick(NormalDialog dialog) {
                         dialog.dismiss();
                     }
                 })
                 .builder();
-        normalDialog = new NormalDialog(this, normalConfig);
 
         //包含错误信息的Dialog显示
-        DialogConfig errorConfig = new DialogConfig.Builder()
+        final DialogConfig errorConfig = new DialogConfig.Builder()
                 .setTitle("这里是错误提示")
                 .setCancelText("取消")
                 .setConfirmText("确定")
@@ -89,21 +67,43 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .builder();
-        errorDialog = new ErrorDialog(this, errorConfig);
 
         //包含ListView的Dialog显示
         final String[] arrayString = new String[]{"示例1", "示例2", "示例3", "示例4", "示例5"};
-        ListDialogConfig listConfig = new ListDialogConfig.Builder()
+        final ListDialogConfig listConfig = new ListDialogConfig.Builder()
                 .setTitle("材质")
                 .setAdapter(new SingleListAdapter(this, arrayString))
                 .setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(MainActivity.this, "Item " + "i" + " is click", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Item " + i + " is click", Toast.LENGTH_SHORT).show();
                         listDialog.dismiss();
                     }
                 })
                 .builder();
-        listDialog = new ListDialog(this, listConfig);
+
+        normal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                normalDialog = new NormalDialog(MainActivity.this, normalConfig);
+                normalDialog.show();
+            }
+        });
+
+        error.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                errorDialog = new ErrorDialog(MainActivity.this, errorConfig);
+                errorDialog.show();
+            }
+        });
+
+        list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listDialog = new ListDialog(MainActivity.this, listConfig);
+                listDialog.show();
+            }
+        });
     }
 }

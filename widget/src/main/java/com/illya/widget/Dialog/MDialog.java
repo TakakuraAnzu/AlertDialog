@@ -49,6 +49,7 @@ class MDialog extends Dialog {
 
             }
         });
+        mDialogView.clearAnimation();
     }
 
     @Override
