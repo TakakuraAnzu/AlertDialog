@@ -26,4 +26,5 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.0.0-beta1'
     compile 'com.pnikosis:materialish-progress:1.0'
+    implementation 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 }
